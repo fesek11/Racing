@@ -1,8 +1,6 @@
 package com.example.demo.participant;
 
-import org.hibernate.annotations.common.util.impl.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,15 +27,18 @@ public class ParticipantController {
     }
 
     @DeleteMapping(path = "{participantId}")
-    public void deleteParticipant(@PathVariable ("participantId") Long participantId) {
+    public void deleteParticipant(@PathVariable("participantId") Long participantId) {
         participantService.deleteParticipant(participantId);
 
     }
 
-    @Transactional
-    public void updateParticipant(@RequestBody Long participantId,@RequestBody Participant participant) {
+    @PostMapping(path = "{participantId}")
+    public void updateParticipant(@PathVariable Long participantId,
+                                  @RequestParam(required = false) String name,
+                                  @RequestParam(required = false) String email) {
+
         System.out.printf("In @Transactional Controller");
-        participantService.updateParticipant(participantId, participant);
+        participantService.updateParticipant(participantId, name, email);
     }
 
 }
