@@ -13,10 +13,10 @@ public class ParticipantConfig {
     CommandLineRunner commandLineRunner(ParticipantRepository participantRepository) {
         return args -> {
 
-            participantRepository.saveAll(List.of(
-                    new Participant("Denis", "den@gmail.com", 26),
-                    new Participant("Ila", "ila@gmail.com", 19),
-                    new Participant("Gomer", "goome@gmail.com", 51)));
+//            participantRepository.saveAll(List.of(
+//                    new Participant("Den","Denys","Fesenko", "dens@gmail.com", "26qds"),
+//                    new Participant("Fey","Djordj","Oruel", "djordj@gmail.com", "26qds"),
+//                    new Participant("Afh","Ali","Kibod", "kibodali@gmail.com", "26qds")
         };
     }
 

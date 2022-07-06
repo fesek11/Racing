@@ -1,6 +1,9 @@
 package com.example.demo.participant;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,8 +12,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ParticipantService {
+public class ParticipantService implements UserDetailsService {
     private final ParticipantRepository participantRepository;
+    private final static String PARTICIPANT_NOT_FOUND_MSG = "Participant with email %s not found";
 
     @Autowired
     public ParticipantService(ParticipantRepository participantService) {
@@ -51,9 +55,9 @@ public class ParticipantService {
     public void updateParticipant(Long id, String name, String email) {
         System.out.printf("In @Transactional Service");
 
-        Participant participantToUpdate = participantRepository.findById(id).orElseThrow(() -> new IllegalStateException("Participant with " + id + " is not exist!"));
-        if (name != null && name.length() > 0 && !Objects.equals(participantToUpdate.getName(), name)) {
-            participantToUpdate.setName(name);
+        Participant participantToUpdate = participantRepository.findParticipantById(id).orElseThrow(() -> new IllegalStateException("Participant with " + id + " is not exist!"));
+        if (name != null && name.length() > 0 && !Objects.equals(participantToUpdate.getUserName(), name)) {
+            participantToUpdate.setUserName(name);
         }
 
         if (email != null && email.length() > 0 && !Objects.equals(participantToUpdate.getEmail(), email)) {
@@ -61,5 +65,12 @@ public class ParticipantService {
             participantToUpdate.setEmail(email);
         }
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return participantRepository.findParticipantByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(String.format(PARTICIPANT_NOT_FOUND_MSG, email)));
     }
 }

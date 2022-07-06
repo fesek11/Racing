@@ -1,5 +1,7 @@
 package com.example.demo.participant;
 
+import com.example.demo.registration.RegistrationRequest;
+import com.example.demo.registration.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import java.util.List;
 @RequestMapping(path = "api/v1")
 public class ParticipantController {
 
+    private RegistrationService registrationService;
     private final ParticipantService participantService;
 
     @Autowired
@@ -22,8 +25,8 @@ public class ParticipantController {
     }
 
     @PostMapping
-    public void registerNewParticipant(@RequestBody Participant participant) {
-        participantService.addNewParticipant(participant);
+    public void registerNewParticipant(@RequestBody RegistrationRequest registrationRequest) {
+        registrationRequest.register(registrationRequest);
     }
 
     @DeleteMapping(path = "{participantId}")
