@@ -19,29 +19,29 @@ public class ParticipantController {
         this.participantService = participantService;
     }
 
-    @GetMapping(path = "/participant")
+  /*  @GetMapping(path = "/participant")
     public List<Participant> getParticipants() {
         return participantService.getParticipants();
     }
-
-    @PostMapping
+*/
+/*    @PostMapping
     public void registerNewParticipant(@RequestBody RegistrationRequest registrationRequest) {
         registrationRequest.register(registrationRequest);
-    }
+    }*/
 
-    @DeleteMapping(path = "{participantId}")
+
+/*    @DeleteMapping(path = "{participantId}")
     public void deleteParticipant(@PathVariable("participantId") Long participantId) {
         participantService.deleteParticipant(participantId);
 
-    }
+    }*/
+@PostMapping(path = "{participantId}")
+public void updateParticipant(@PathVariable Long participantId,
+                              @RequestParam(required = false) String name,
+                              @RequestParam(required = false) String email) {
 
-    @PostMapping(path = "{participantId}")
-    public void updateParticipant(@PathVariable Long participantId,
-                                  @RequestParam(required = false) String name,
-                                  @RequestParam(required = false) String email) {
-
-        System.out.printf("In @Transactional Controller");
-        participantService.updateParticipant(participantId, name, email);
-    }
+    System.out.printf("In @Transactional Controller");
+//     participantService.updateParticipant(participantId, name, email);
+}
 
 }

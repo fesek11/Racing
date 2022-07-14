@@ -1,9 +1,7 @@
 package com.example.demo.registration;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Getter
 @AllArgsConstructor
@@ -15,7 +13,4 @@ public class RegistrationRequest {
     private final String email;
     private final String password;
 
-    public void register(RegistrationRequest registrationRequest) {
-
-    }
 }

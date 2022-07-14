@@ -22,14 +22,18 @@ public class ParticipantService implements UserDetailsService {
     }
 
 
+/*
     public List<Participant> getParticipants() {
         return participantRepository.findAll();
     }
+*/
+/*
 
     public void addNewParticipant(Participant participant) {
         checkUniqueEmail(participant.getEmail());
         participantRepository.save(participant);
     }
+*/
 
     private void checkUniqueEmail(String email) {
         String regex = "^[\\w.+\\-]+@gmail\\.com$";
@@ -42,6 +46,7 @@ public class ParticipantService implements UserDetailsService {
         }
     }
 
+/*
     public void deleteParticipant(Long participantId) {
         boolean exists = participantRepository.existsById(participantId);
         if (!exists) {
@@ -50,8 +55,9 @@ public class ParticipantService implements UserDetailsService {
         participantRepository.deleteById(participantId);
 
     }
+*/
 
-    @Transactional
+   /* @Transactional
     public void updateParticipant(Long id, String name, String email) {
         System.out.printf("In @Transactional Service");
 
@@ -65,7 +71,7 @@ public class ParticipantService implements UserDetailsService {
             participantToUpdate.setEmail(email);
         }
 
-    }
+    }*/
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
