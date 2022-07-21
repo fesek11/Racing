@@ -1,5 +1,6 @@
 package com.example.demo.participant;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,14 +13,11 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ParticipantService implements UserDetailsService {
     private final ParticipantRepository participantRepository;
     private final static String PARTICIPANT_NOT_FOUND_MSG = "Participant with email %s not found";
 
-    @Autowired
-    public ParticipantService(ParticipantRepository participantService) {
-        this.participantRepository = participantService;
-    }
 
 
 /*

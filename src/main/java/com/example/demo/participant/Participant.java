@@ -3,7 +3,6 @@ package com.example.demo.participant;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,14 +13,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@Entity
 public class Participant implements UserDetails {
-    @Id
+
     @SequenceGenerator(name = "participant_sequence", sequenceName = "participant_sequence", allocationSize = 1)
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "participant_sequence")
     private Long id;
     private String userName;
