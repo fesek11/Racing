@@ -1,80 +1,83 @@
 package com.example.demo.participant;
 
+import com.example.demo.registration.EmailValidator;
+import com.example.demo.registration.token.ConfirmationToken;
+import com.example.demo.registration.token.ConfirmationTokenService;
+import com.example.demo.security.PasswordEncoder;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class ParticipantService implements UserDetailsService {
-    private final ParticipantRepository participantRepository;
     private final static String PARTICIPANT_NOT_FOUND_MSG = "Participant with email %s not found";
+    private final EmailValidator emailValidator;
+    private final ParticipantRepository participantRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
 
-
-
-/*
     public List<Participant> getParticipants() {
+        System.out.println("We are in Service getParticipants");
         return participantRepository.findAll();
     }
-*/
-/*
 
-    public void addNewParticipant(Participant participant) {
-        checkUniqueEmail(participant.getEmail());
+    public String signUpParticipant(Participant participant) {
+        boolean participantExists = participantRepository
+                .findParticipantByEmail(participant.getEmail())
+                .isPresent();
+        if (participantExists) {
+            throw new IllegalStateException("Email already taken");
+        }
+        participant.setPassword(passwordEncoder.bCryptPasswordEncoder().encode(participant.getPassword()));
         participantRepository.save(participant);
-    }
-*/
-
-    private void checkUniqueEmail(String email) {
-        String regex = "^[\\w.+\\-]+@gmail\\.com$";
-        if (regex.matches(email)) {
-            throw new IllegalStateException("Email " + email + " is not valid");
-        }
-        Optional<Participant> participantByEmail = participantRepository.findParticipantByEmail(email);
-        if (participantByEmail.isPresent()) {
-            throw new IllegalStateException("Email " + email + " is taken");
-        }
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                participant
+        );
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+        //todo: send email
+        return token;
     }
 
-/*
     public void deleteParticipant(Long participantId) {
         boolean exists = participantRepository.existsById(participantId);
         if (!exists) {
             throw new IllegalStateException("Participant with " + participantId + " is not exist!");
         }
         participantRepository.deleteById(participantId);
-
     }
-*/
 
-   /* @Transactional
-    public void updateParticipant(Long id, String name, String email) {
-        System.out.printf("In @Transactional Service");
-
-        Participant participantToUpdate = participantRepository.findParticipantById(id).orElseThrow(() -> new IllegalStateException("Participant with " + id + " is not exist!"));
-        if (name != null && name.length() > 0 && !Objects.equals(participantToUpdate.getUserName(), name)) {
-            participantToUpdate.setUserName(name);
+    @Transactional
+    public void updateParticipant(Long participantId, String firstName, String email) {
+        Participant participantToUpdate = participantRepository.findParticipantById(participantId).orElseThrow(() -> new IllegalStateException("Participant with " + participantId + " is not exist!"));
+        if (firstName != null && firstName.length() > 0 && !Objects.equals(participantToUpdate.getFirstName(), firstName)) {
+            participantToUpdate.setFirstName(firstName);
         }
-
-        if (email != null && email.length() > 0 && !Objects.equals(participantToUpdate.getEmail(), email)) {
-            checkUniqueEmail(email);
+        if (emailValidator.test(email)) {
             participantToUpdate.setEmail(email);
         }
-
-    }*/
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return participantRepository.findParticipantByEmail(email)
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        return participantRepository.findParticipantByEmail(userName)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format(PARTICIPANT_NOT_FOUND_MSG, email)));
+                        new UsernameNotFoundException(String.format(PARTICIPANT_NOT_FOUND_MSG, userName)));
+    }
+
+    public int enableParticipant(String email) {
+        return participantRepository.enableParticipant(email);
     }
 }

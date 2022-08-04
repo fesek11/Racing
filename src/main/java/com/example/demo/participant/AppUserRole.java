@@ -1,6 +1,6 @@
 package com.example.demo.participant;
 
-enum AppUserRole {
+public enum AppUserRole {
     USER,
     ADMIN
 }

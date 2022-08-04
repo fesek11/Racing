@@ -23,23 +23,25 @@ public class Participant implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "participant_sequence")
     private Long id;
-    private String userName;
+    private String email;
     private String firstName;
     private String lastName;
-    private String email;
+    private String userName;
     private String password;
-    private Boolean locked;
-    private Boolean enabled;
+    private Boolean locked = false;
+    private Boolean enabled = false;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
-    public Participant(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+    public Participant(String firstName, String lastName, String userName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = userName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,14 +50,10 @@ public class Participant implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
     public String getUsername() {
         return userName;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
