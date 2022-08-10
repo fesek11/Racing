@@ -14,9 +14,9 @@ public class ParticipantConfig {
         return args -> {
 
 //            participantRepository.saveAll(List.of(
-//                    new Participant("Den", "Denys", "Fesenko", "dens@gmail.com", AppUserRole.ADMIN, "Den"),
-//                    new Participant("Fey", "Djordj", "Oruel", "djordj@gmail.com", AppUserRole.USER),
-//                    new Participant("Afh", "Ali", "Kibod", "kibodali@gmail.com", AppUserRole.USER)));
+//                    new Participant("Den","Denys","Fesenko", "dens@gmail.com", "26qds"),
+//                    new Participant("Fey","Djordj","Oruel", "djordj@gmail.com", "26qds"),
+//                    new Participant("Afh","Ali","Kibod", "kibodali@gmail.com", "26qds")
         };
     }
 
