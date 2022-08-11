@@ -28,9 +28,9 @@ public class ParticipantController {
     @PostMapping(path = "{participantId}")
     public void updateParticipant(@PathVariable Long participantId,
                                   @RequestParam(required = false) String firstName,
-                                  @RequestParam(required = false) String userName) {
+                                  @RequestParam(required = false) String email) {
 
-     participantService.updateParticipant(participantId, firstName, userName);
+     participantService.updateParticipant(participantId, firstName, email);
     }
 
 }

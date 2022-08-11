@@ -61,8 +61,11 @@ public class ParticipantService implements UserDetailsService {
 
     @Transactional
     public void updateParticipant(Long participantId, String firstName, String email) {
-        Participant participantToUpdate = participantRepository.findParticipantById(participantId).orElseThrow(() -> new IllegalStateException("Participant with " + participantId + " is not exist!"));
-        if (firstName != null && firstName.length() > 0 && !Objects.equals(participantToUpdate.getFirstName(), firstName)) {
+        Participant participantToUpdate = participantRepository
+                .findParticipantById(participantId)
+                .orElseThrow(() -> new IllegalStateException("Participant with " + participantId + " is not exist!"));
+        if (firstName != null && firstName.length() > 0 &&
+                !Objects.equals(participantToUpdate.getFirstName(), firstName)) {
             participantToUpdate.setFirstName(firstName);
         }
         if (emailValidator.test(email)) {

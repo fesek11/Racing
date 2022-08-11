@@ -23,20 +23,18 @@ public class Participant implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "participant_sequence")
     private Long id;
-    private String email;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String email;
     private String password;
     private Boolean locked = false;
     private Boolean enabled = false;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
-    public Participant(String firstName, String lastName, String userName, String email, String password, AppUserRole appUserRole) {
+    public Participant(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -51,7 +49,7 @@ public class Participant implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
 
 
