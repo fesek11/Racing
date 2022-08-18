@@ -1,5 +1,6 @@
 package com.example.demo.participant;
 
+import com.example.demo.racingfactory.impl.BikeRacing;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,10 @@ public class Participant implements UserDetails {
     private Boolean enabled = false;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
+
+    @ManyToOne
+    @JoinColumn(name = "bike_racing_id")
+    private BikeRacing bikeRacing;
 
     public Participant(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;

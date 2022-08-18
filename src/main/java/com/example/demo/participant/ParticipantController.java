@@ -1,5 +1,6 @@
 package com.example.demo.participant;
 
+import com.example.demo.participant.services.ParticipantService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,11 +27,9 @@ public class ParticipantController {
     }
 
     @PostMapping(path = "{participantId}")
-    public void updateParticipant(@PathVariable Long participantId,
-                                  @RequestParam(required = false) String firstName,
-                                  @RequestParam(required = false) String email) {
+    public void updateParticipant(@PathVariable Long participantId, @RequestParam(required = false) String firstName, @RequestParam(required = false) String email) {
 
-     participantService.updateParticipant(participantId, firstName, email);
+        participantService.updateParticipant(participantId, firstName, email);
     }
 
 }

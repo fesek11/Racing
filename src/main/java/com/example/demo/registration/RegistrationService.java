@@ -3,7 +3,7 @@ package com.example.demo.registration;
 import com.example.demo.email.EmailSender;
 import com.example.demo.participant.AppUserRole;
 import com.example.demo.participant.Participant;
-import com.example.demo.participant.ParticipantService;
+import com.example.demo.participant.services.ParticipantService;
 import com.example.demo.registration.token.ConfirmationToken;
 import com.example.demo.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;

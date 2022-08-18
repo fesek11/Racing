@@ -2,15 +2,17 @@ package com.example.demo.racingfactory.impl;
 
 import com.example.demo.participant.Participant;
 import com.example.demo.racingfactory.RacingI;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
 
-@Component
+@Entity
+@Getter
+@Setter
 public class CarRacing implements RacingI {
 
     @SequenceGenerator(name = "carRacing_sequence", sequenceName = "carRacing_sequence", allocationSize = 1)
@@ -20,12 +22,12 @@ public class CarRacing implements RacingI {
 
 
     @Override
-    public void takeAPart(Participant participant) {
-
+    public List<Participant> getList() {
+        return null;
     }
 
     @Override
-    public Map<Long, Participant> getScore() {
+    public Map<Long, String> getScore() {
         return null;
     }
 }

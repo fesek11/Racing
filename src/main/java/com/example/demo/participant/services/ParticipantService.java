@@ -1,5 +1,7 @@
-package com.example.demo.participant;
+package com.example.demo.participant.services;
 
+import com.example.demo.participant.Participant;
+import com.example.demo.participant.ParticipantRepository;
 import com.example.demo.registration.EmailValidator;
 import com.example.demo.registration.token.ConfirmationToken;
 import com.example.demo.registration.token.ConfirmationTokenService;
@@ -26,7 +28,6 @@ public class ParticipantService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
 
     public List<Participant> getParticipants() {
-        System.out.println("We are in Service getParticipants");
         return participantRepository.findAll();
     }
 
