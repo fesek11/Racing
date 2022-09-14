@@ -28,8 +28,10 @@ public class ParticipantService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
 
     public List<Participant> getParticipants() {
-        return participantRepository.findAll();
+        System.out.printf("    public List<Participant> getParticipants() {\n");
+        return participantRepository.findAll().stream().toList();
     }
+
 
     public String signUpParticipant(Participant participant) {
         boolean participantExists = participantRepository

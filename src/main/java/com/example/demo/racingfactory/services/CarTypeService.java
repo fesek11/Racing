@@ -12,7 +12,7 @@ public class CarTypeService implements ServiceFactory {
     private CarRacing carRacing;
     @Override
     public List<Participant> getParticipants() {
-        return carRacing.getList();
+        return carRacing.getSetOfParticipants();
     }
 
     @Override

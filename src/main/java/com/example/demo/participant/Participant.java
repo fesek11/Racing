@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,9 +34,12 @@ public class Participant implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
 
-    @ManyToOne
-    @JoinColumn(name = "bike_racing_id")
-    private BikeRacing bikeRacing;
+    @ManyToMany
+    @JoinTable(
+            name = "racing_part",
+            joinColumns = @JoinColumn(name = "participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "racing_id"))
+    private Set<BikeRacing> racingPart;
 
     public Participant(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;

@@ -5,9 +5,9 @@ import com.example.demo.participant.Participant;
 import java.util.List;
 import java.util.Map;
 
-public interface RacingI {
+public interface Racing {
 
-    List<Participant> getList();
+    List<Participant> getSetOfParticipants();
 
     Map<Long, String> getScore();
 }

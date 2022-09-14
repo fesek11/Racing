@@ -8,6 +8,7 @@ import com.example.demo.racingfactory.impl.BikeRacing;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class BikeTypeService implements ServiceFactory {
@@ -18,7 +19,7 @@ public class BikeTypeService implements ServiceFactory {
 
     @Override
     public List<Participant> getParticipants() {
-        return bikeRacing.getParticipants();
+        return bikeRacing.getSetOfParticipants();
     }
 
     @Override

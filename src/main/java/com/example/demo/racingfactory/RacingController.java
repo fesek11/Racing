@@ -1,7 +1,6 @@
 package com.example.demo.racingfactory;
 
 import com.example.demo.participant.Participant;
-import com.example.demo.participant.ParticipantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "api/v1/racing")
+@RequestMapping(path = "/api/v1/racing")
 public class RacingController {
     private RacingRepository racingRepository;
 

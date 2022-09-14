@@ -27,10 +27,10 @@ public class RegistrationService {
         if (!isValidEmail) {
             throw new IllegalStateException("email not valid");
         }
-        String token = participantService.signUpParticipant(new Participant(request.getFirstName(), request.getLastName(), request.getUserName(), request.getPassword(), AppUserRole.USER));
+        String token = participantService.signUpParticipant(new Participant(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword(), AppUserRole.USER));
 
-        String link = "http://localhost:8081/api/v1/registration/confirm?token=" + token;
-        emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+//        String link = "http://localhost:8081/api/v1/registration/confirm?token=" + token;
+//        emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 
         return token;
     }
