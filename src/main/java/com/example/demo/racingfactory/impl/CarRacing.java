@@ -12,7 +12,7 @@ import java.util.Map;
 @Entity
 @Getter
 @Setter
-public class CarRacing implements Racing {
+public class CarRacing extends Racing {
 
     @SequenceGenerator(name = "carRacing_sequence", sequenceName = "carRacing_sequence", allocationSize = 1)
     @Id
@@ -20,12 +20,14 @@ public class CarRacing implements Racing {
     private Long id;
 
 
-    @Override
     public List<Participant> getSetOfParticipants() {
         return null;
     }
 
-    @Override
+    protected List<Participant> participants() {
+        return null;
+    }
+
     public Map<Long, String> getScore() {
         return null;
     }

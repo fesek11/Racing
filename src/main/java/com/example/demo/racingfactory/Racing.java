@@ -5,9 +5,7 @@ import com.example.demo.participant.Participant;
 import java.util.List;
 import java.util.Map;
 
-public interface Racing {
+public abstract class Racing {
 
-    List<Participant> getSetOfParticipants();
 
-    Map<Long, String> getScore();
 }

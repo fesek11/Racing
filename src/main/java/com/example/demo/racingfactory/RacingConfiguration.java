@@ -11,8 +11,8 @@ import java.util.Map;
 
 @Configuration
 public class RacingConfiguration {
-    private CarTypeService carTypeService;
-    private BikeTypeService bikeTypeService;
+    private final CarTypeService carTypeService = new CarTypeService();
+    private final BikeTypeService bikeTypeService = new BikeTypeService();
 
     public static final Map<String, ServiceFactory> serviceFactoryMap = new HashMap<>();
 

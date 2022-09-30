@@ -4,7 +4,7 @@ import com.example.demo.participant.Participant;
 
 import java.util.List;
 
-public interface ServiceFactory {
+public interface ServiceFactory{
 
     List<Participant> getParticipants();
 

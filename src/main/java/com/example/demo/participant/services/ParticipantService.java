@@ -6,7 +6,7 @@ import com.example.demo.registration.EmailValidator;
 import com.example.demo.registration.token.ConfirmationToken;
 import com.example.demo.registration.token.ConfirmationTokenService;
 import com.example.demo.security.PasswordEncoder;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,10 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@Transactional(readOnly = true)
 public class ParticipantService implements UserDetailsService {
     private final static String PARTICIPANT_NOT_FOUND_MSG = "Participant with email %s not found";
     private final EmailValidator emailValidator;
@@ -27,9 +28,19 @@ public class ParticipantService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
 
+    @Autowired
+    public ParticipantService(EmailValidator emailValidator, ParticipantRepository participantRepository, PasswordEncoder passwordEncoder, ConfirmationTokenService confirmationTokenService) {
+        this.emailValidator = emailValidator;
+        this.participantRepository = participantRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.confirmationTokenService = confirmationTokenService;
+    }
+
     public List<Participant> getParticipants() {
-        System.out.printf("    public List<Participant> getParticipants() {\n");
         return participantRepository.findAll().stream().toList();
+    }
+    public Optional<Participant> getParticipant(Long aLong) {
+        return participantRepository.findParticipantById(aLong);
     }
 
 
@@ -54,6 +65,7 @@ public class ParticipantService implements UserDetailsService {
         return token;
     }
 
+    @Transactional
     public void deleteParticipant(Long participantId) {
         boolean exists = participantRepository.existsById(participantId);
         if (!exists) {

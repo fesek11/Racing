@@ -2,10 +2,10 @@ package com.example.demo.participant;
 
 import com.example.demo.participant.services.ParticipantService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @AllArgsConstructor
 @RestController
@@ -21,14 +21,19 @@ public class ParticipantController {
         return participantService.getParticipants();
     }
 
+    @GetMapping(path = "/participants/{username}")
+    public UserDetails getParticipant(@PathVariable String username) {
+        return participantService.loadUserByUsername(username);
+    }
+
     @DeleteMapping(path = "/{participantId}")
     public String deleteParticipant(@PathVariable("participantId") Long participantId) {
         participantService.deleteParticipant(participantId);
-        return "Done!";
+        return "Delete Done!";
 
     }
 
-    @PostMapping(path = "{participantId}")
+    @PostMapping(path = "/update/{participantId}")
     public void updateParticipant(@PathVariable Long participantId, @RequestParam(required = false) String firstName, @RequestParam(required = false) String email) {
 
         participantService.updateParticipant(participantId, firstName, email);

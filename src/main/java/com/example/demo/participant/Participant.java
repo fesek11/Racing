@@ -1,6 +1,7 @@
 package com.example.demo.participant;
 
 import com.example.demo.racingfactory.impl.BikeRacing;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class Participant implements UserDetails {
-
+    @NotNull
     @SequenceGenerator(name = "participant_sequence", sequenceName = "participant_sequence", allocationSize = 1)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "participant_sequence")
